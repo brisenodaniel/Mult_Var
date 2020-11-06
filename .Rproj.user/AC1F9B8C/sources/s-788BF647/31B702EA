@@ -3,7 +3,7 @@
     "path": "C:/Users/brise/Chapman/Mult_Var/Quiz1.Rmd",
     "project_path": "Quiz1.Rmd",
     "type": "r_markdown",
-    "hash": "0",
+    "hash": "2854774584",
     "contents": "",
     "dirty": false,
     "created": 1604632546095.0,
@@ -11,15 +11,15 @@
     "relative_order": 3,
     "properties": {
         "tempName": "Untitled1",
-        "cursorPosition": "79,26",
-        "scrollLine": "52"
+        "cursorPosition": "43,0",
+        "scrollLine": "31"
     },
     "folds": "",
-    "lastKnownWriteTime": 1604634698,
+    "lastKnownWriteTime": 1604635251,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1604634699089,
+    "last_content_update": 1604635251874,
     "read_only": false,
     "read_only_alternatives": []
 }

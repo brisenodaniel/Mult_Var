@@ -41,7 +41,7 @@ mvn(d, mvnTest = 'royston')
 
 #Problem c
 
-#mvn(d, multivariateOutlierMethod='adj') Commented out due to errors with knittr, but plot is included
+mvn(d, multivariateOutlierMethod='adj') Commented out due to errors with knittr, but plot is included
 
 # conclusion: no outliers detected, additonally, the linearity of the Q-Q plot futher confirms our assumpion of multivariate normality
 
