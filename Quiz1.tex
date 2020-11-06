@@ -1,0 +1,468 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Quiz1},
+  pdfauthor={Daniel Briseno Servin},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+
+\title{Quiz1}
+\author{Daniel Briseno Servin}
+\date{11/5/2020}
+
+\begin{document}
+\maketitle
+
+\hypertarget{code}{%
+\section{Code}\label{code}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(MVN)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Registered S3 method overwritten by 'GGally':
+##   method from   
+##   +.gg   ggplot2
+\end{verbatim}
+
+\begin{verbatim}
+## sROC 0.1-2 loaded
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{d =}\StringTok{ }\KeywordTok{read.table}\NormalTok{(}\StringTok{'T4-6.DAT'}\NormalTok{)}
+\NormalTok{d =}\StringTok{ }\KeywordTok{cbind}\NormalTok{(d[,}\DecValTok{3}\NormalTok{],d[,}\DecValTok{4}\NormalTok{])}
+\KeywordTok{colnames}\NormalTok{(d) =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{'Ben'}\NormalTok{,}\StringTok{'Con'}\NormalTok{)}
+
+\CommentTok{#Problem a}
+\KeywordTok{mvn}\NormalTok{(d,}\DataTypeTok{univariateTest =} \StringTok{"CVM"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $multivariateNormality
+##              Test         Statistic           p value Result
+## 1 Mardia Skewness  4.08660356054104 0.394412192646208    YES
+## 2 Mardia Kurtosis -1.01320529396718  0.31096211234623    YES
+## 3             MVN              <NA>              <NA>    YES
+## 
+## $univariateNormality
+##               Test  Variable Statistic   p value Normality
+## 1 Cramer-von Mises    Ben       0.0932    0.1380    YES   
+## 2 Cramer-von Mises    Con       0.1059    0.0923    YES   
+## 
+## $Descriptives
+##       n     Mean  Std.Dev Median Min Max  25th 75th       Skew   Kurtosis
+## Ben 130 18.78462 5.463032     19   2  29 15.00   22 -0.2988849 -0.2146062
+## Con 130 15.50000 5.748272     16   1  27 11.25   19 -0.1609836 -0.6276702
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mvn}\NormalTok{(d, }\DataTypeTok{mvnTest =} \StringTok{'hz'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $multivariateNormality
+##            Test        HZ   p value MVN
+## 1 Henze-Zirkler 0.5816267 0.4762395 YES
+## 
+## $univariateNormality
+##           Test  Variable Statistic   p value Normality
+## 1 Shapiro-Wilk    Ben       0.9839    0.1269    YES   
+## 2 Shapiro-Wilk    Con       0.9846    0.1500    YES   
+## 
+## $Descriptives
+##       n     Mean  Std.Dev Median Min Max  25th 75th       Skew   Kurtosis
+## Ben 130 18.78462 5.463032     19   2  29 15.00   22 -0.2988849 -0.2146062
+## Con 130 15.50000 5.748272     16   1  27 11.25   19 -0.1609836 -0.6276702
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Conclusion, we can assume both variables are univariate normal, since both }
+\CommentTok{# univariate normality tests concluded that benevolence and conformity are normally distributed (univariate)}
+
+
+\CommentTok{#Problem b}
+
+\KeywordTok{mvn}\NormalTok{(d, }\DataTypeTok{mvnTest =} \StringTok{'hz'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $multivariateNormality
+##            Test        HZ   p value MVN
+## 1 Henze-Zirkler 0.5816267 0.4762395 YES
+## 
+## $univariateNormality
+##           Test  Variable Statistic   p value Normality
+## 1 Shapiro-Wilk    Ben       0.9839    0.1269    YES   
+## 2 Shapiro-Wilk    Con       0.9846    0.1500    YES   
+## 
+## $Descriptives
+##       n     Mean  Std.Dev Median Min Max  25th 75th       Skew   Kurtosis
+## Ben 130 18.78462 5.463032     19   2  29 15.00   22 -0.2988849 -0.2146062
+## Con 130 15.50000 5.748272     16   1  27 11.25   19 -0.1609836 -0.6276702
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mvn}\NormalTok{(d, }\DataTypeTok{mvnTest =} \StringTok{'royston'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $multivariateNormality
+##      Test        H   p value MVN
+## 1 Royston 4.407254 0.1106335 YES
+## 
+## $univariateNormality
+##           Test  Variable Statistic   p value Normality
+## 1 Shapiro-Wilk    Ben       0.9839    0.1269    YES   
+## 2 Shapiro-Wilk    Con       0.9846    0.1500    YES   
+## 
+## $Descriptives
+##       n     Mean  Std.Dev Median Min Max  25th 75th       Skew   Kurtosis
+## Ben 130 18.78462 5.463032     19   2  29 15.00   22 -0.2988849 -0.2146062
+## Con 130 15.50000 5.748272     16   1  27 11.25   19 -0.1609836 -0.6276702
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#conclusion: we can assume that the two variables are bivariate normal}
+
+\CommentTok{#Problem c}
+
+\CommentTok{#mvn(d, multivariateOutlierMethod='adj') Commented out due to errors with knittr, but plot is included}
+
+\CommentTok{# conclusion: no outliers detected, additonally, the linearity of the Q-Q plot futher confirms our assumpion of multivariate normality}
+
+
+\CommentTok{#Problem d}
+
+\CommentTok{#Using Null hypothesis mu0= (17,22)}
+\CommentTok{#Reject H0 if : n(xbar - mu0) %*% solve(S) %*% (xbar - mu0) > (n-1)p/(n-p) F(0.05,p,n-p)}
+\CommentTok{#Define vars:}
+\NormalTok{n =}\StringTok{ }\DecValTok{130}
+\NormalTok{xbar =}\StringTok{ }\KeywordTok{colMeans}\NormalTok{(d)}
+\NormalTok{mu0 =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{17}\NormalTok{,}\DecValTok{22}\NormalTok{)}
+\NormalTok{S =}\StringTok{ }\KeywordTok{var}\NormalTok{(d)}
+\NormalTok{p =}\StringTok{ }\DecValTok{2}
+\NormalTok{T2 =}\StringTok{ }\NormalTok{n}\OperatorTok{*}\KeywordTok{t}\NormalTok{(xbar }\OperatorTok{-}\StringTok{ }\NormalTok{mu0) }\OperatorTok{%*%}\StringTok{ }\KeywordTok{solve}\NormalTok{(S) }\OperatorTok{%*%}\StringTok{ }\NormalTok{(xbar }\OperatorTok{-}\StringTok{ }\NormalTok{mu0)}
+\NormalTok{T2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          [,1]
+## [1,] 228.9841
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{c2 =}\StringTok{  }\NormalTok{((n}\DecValTok{-1}\NormalTok{)}\OperatorTok{*}\NormalTok{p}\OperatorTok{/}\NormalTok{(n}\OperatorTok{-}\NormalTok{p))}\OperatorTok{*}\KeywordTok{qf}\NormalTok{(}\FloatTok{0.95}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{128}\NormalTok{)}
+\NormalTok{c2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 6.181825
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{T2 }\OperatorTok{<=}\StringTok{ }\NormalTok{c2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       [,1]
+## [1,] FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#So the null hypothesis is rejected in favor of the alternative hypothesis. mu != t(17,22)}
+
+
+\CommentTok{#Problem e}
+\CommentTok{#99% confidence intervals:}
+
+\CommentTok{#xbar[i] - qt(0.99/2m,n-1)*sqrt(S[i,i]/n), xbar[i] + qt(0.99/2m,n-1)*sqrt(S[i,i]/n)}
+\NormalTok{xbar =}\StringTok{ }\KeywordTok{c}\NormalTok{(xbar[}\DecValTok{1}\NormalTok{],xbar[}\DecValTok{2}\NormalTok{])}
+\NormalTok{m=}\DecValTok{2} 
+\ControlFlowTok{for}\NormalTok{( i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{)\{}
+  \KeywordTok{print}\NormalTok{( }\KeywordTok{c}\NormalTok{(xbar[i] }\OperatorTok{-}\StringTok{ }\KeywordTok{qt}\NormalTok{(}\FloatTok{0.99}\OperatorTok{/}\NormalTok{(}\DecValTok{2}\OperatorTok{*}\NormalTok{m),n}\DecValTok{-1}\NormalTok{)}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(S[i,i]}\OperatorTok{/}\NormalTok{n), xbar[i] }\OperatorTok{+}\StringTok{ }\KeywordTok{qt}\NormalTok{(}\FloatTok{0.99}\OperatorTok{/}\NormalTok{(}\DecValTok{2}\OperatorTok{*}\NormalTok{m),n}\DecValTok{-1}\NormalTok{)}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(S[i,i]}\OperatorTok{/}\NormalTok{n)))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      Ben      Ben 
+## 19.11250 18.45673 
+##      Con      Con 
+## 15.84501 15.15499
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{d}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        Ben Con
+##   [1,]  14  20
+##   [2,]  24  25
+##   [3,]  15  16
+##   [4,]  17  12
+##   [5,]  22  21
+##   [6,]  17  25
+##   [7,]  29  18
+##   [8,]  21  10
+##   [9,]  23  19
+##  [10,]  17   9
+##  [11,]  16  12
+##  [12,]  29  14
+##  [13,]  24  17
+##  [14,]  17  18
+##  [15,]  23  17
+##  [16,]  22  18
+##  [17,]  11  23
+##  [18,]  15   8
+##  [19,]  24  11
+##  [20,]  17  24
+##  [21,]  27  18
+##  [22,]  15  14
+##  [23,]  21  18
+##  [24,]  19  12
+##  [25,]  26  14
+##  [26,]  11  20
+##  [27,]  22  23
+##  [28,]  18   9
+##  [29,]  27  16
+##  [30,]  19  22
+##  [31,]  16  20
+##  [32,]  21  19
+##  [33,]  22  19
+##  [34,]  19  18
+##  [35,]  23  23
+##  [36,]  16  20
+##  [37,]  15  23
+##  [38,]  18  15
+##  [39,]  29  20
+##  [40,]  23  21
+##  [41,]  22  11
+##  [42,]  19  18
+##  [43,]  13  13
+##  [44,]  28  20
+##  [45,]  22  25
+##  [46,]  14   9
+##  [47,]  23  17
+##  [48,]  11  15
+##  [49,]  15   8
+##  [50,]  24  24
+##  [51,]  19  24
+##  [52,]  17  19
+##  [53,]  29  17
+##  [54,]  21  25
+##  [55,]   8  12
+##  [56,]  23  22
+##  [57,]  12  15
+##  [58,]  21  18
+##  [59,]  21  18
+##  [60,]  19  11
+##  [61,]  22  18
+##  [62,]  19  21
+##  [63,]  21  27
+##  [64,]  19  17
+##  [65,]  14   8
+##  [66,]  15  19
+##  [67,]  25  17
+##  [68,]  29  14
+##  [69,]  14  18
+##  [70,]  22  15
+##  [71,]  28  18
+##  [72,]  14  27
+##  [73,]  19   4
+##  [74,]  11   4
+##  [75,]   9  16
+##  [76,]  25  20
+##  [77,]   9  14
+##  [78,]  12   6
+##  [79,]  21  11
+##  [80,]  23  18
+##  [81,]  21  14
+##  [82,]  28  25
+##  [83,]   9   1
+##  [84,]  16   5
+##  [85,]  10  15
+##  [86,]  18  14
+##  [87,]  17  15
+##  [88,]   9  11
+##  [89,]  14  14
+##  [90,]  18  21
+##  [91,]  12  17
+##  [92,]  20  10
+##  [93,]  19  16
+##  [94,]  22  13
+##  [95,]  20  14
+##  [96,]  26   9
+##  [97,]  18  19
+##  [98,]  20   7
+##  [99,]  14  13
+## [100,]  21   5
+## [101,]  25  10
+## [102,]  12  12
+## [103,]  14  12
+## [104,]   2  20
+## [105,]  18   8
+## [106,]  24  27
+## [107,]  11   6
+## [108,]  24  19
+## [109,]  20   8
+## [110,]  21  13
+## [111,]   6   7
+## [112,]  12   4
+## [113,]  22  11
+## [114,]  26   9
+## [115,]  19  17
+## [116,]   8   6
+## [117,]  24  17
+## [118,]  16  12
+## [119,]  18  23
+## [120,]  19  12
+## [121,]  19  19
+## [122,]  20  22
+## [123,]  14  12
+## [124,]  17  14
+## [125,]  16   8
+## [126,]  26  17
+## [127,]  14  11
+## [128,]  23  18
+## [129,]  22   7
+## [130,]  22  22
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Thus our confidence intervals are :}
+\CommentTok{# 18.46 <= mu_ben <= 19.11}
+\CommentTok{# 15.15 <= mu_con <= 15.84}
+\end{Highlighting}
+\end{Shaded}
+
+\end{document}
