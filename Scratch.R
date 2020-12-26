@@ -1,7 +1,8 @@
 d = read.table('T1-8.DAT')
 names(d) = c('r1','r2','h1','h2','u1','u2')
 head(d)
-library(MVN)
+d$r1
+#library(MVN)
 
 mvn(data=d, mvnTest='hz',multivariateOutlierMethod='adj')
 dim(d)
@@ -27,7 +28,7 @@ for(i in 1:6){
 }
 qt()
 
-
+qt((1-0.01)/(4),129)
 
 
 
@@ -49,3 +50,51 @@ mvn(d, mvnTest="royston")
 
 
 #Conclusion, the data is not multivariate normal, since 
+
+
+
+
+
+#Midterm
+
+#Problem 4
+library(MVN)
+d = read.table('T4-6 (2).DAT')
+head(d)
+
+names(d) = c('Ind', 'Sup', 'Ben','Con', 'Led','C_1', 'C_2')
+d = cbind(d$Ben, d$Con)
+colnames(d) = c('Ben','Con')
+
+#Tests for normality
+mvn(d,univariateTest = "CVM")
+
+mvn(d, mvnTest = 'hz')
+mvn(d, mvnTest = 'royston')
+tail(d) colnames(d)
+mvn(d, mvnTest = "hz", multivariateOutlierMethod='adj' )
+
+#no outliers detected, additonally, the linearity of the Q-Q plot futher confirms our assumpion of multivariate normality
+dim(d)
+#Using Null hypothesis mu0= (17,22)
+#Reject H0 if : n(xbar - mu0) %*% solve(S) %*% (xbar - mu0) > (n-1)p/(n-p) F(0.05,p,n-p)
+#Define vars:
+n = 130
+xbar = colMeans(d)
+mu0 = c(17,22)
+S = var(d)
+p = 2
+T2 = n*(xbar - mu0) %*% solve(S) %*% (xbar - mu0)
+T2
+((n-1)*p/(n-p))*qf(0.95,2,130-2)
+#So the null hypothesis is rejected
+
+
+#99% confidence intervals:
+
+#xbar[i] - qt(0.99/2m,n-1)*sqrt(S[i,i]/n), xbar[i] + qt(0.99/2m,n-1)*sqrt(S[i,i]/n)
+xbar = c(xbar[1],xbar[2])
+m=2 
+for( i in 1:2){
+ print( c(xbar[i] - qt(0.99/(2*m),n-1)*sqrt(S[i,i]/n), xbar[i] + qt(0.99/(2*m),n-1)*sqrt(S[i,i]/n)))
+}

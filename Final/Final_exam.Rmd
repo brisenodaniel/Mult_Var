@@ -1,0 +1,298 @@
+---
+title: "Final_Exam"
+author: "Daniel Briseno Servin"
+date: "12/18/2020"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+require(mlbench)
+require(dplyr)
+require(MASS)
+require(MVN)
+require(psych)
+require(ggplot2)
+```
+
+## Problem 4 ##
+
+### First the base-regression model ###
+
+```{r}
+data(BostonHousing)
+d <- BostonHousing
+d <- na.omit(d)
+
+# base regression model
+base <- lm(medv~., data=d)
+summary(base)
+plot(base)
+```
+
+
+
+### Base model with only stat. sig. variables ###
+
+```{r}
+d_sig_base <- data.frame(d) %>% dplyr::select(-indus) %>% dplyr::select(-age)
+base_sig <- lm(medv ~., data=d_sig_base)
+summary(base_sig)
+plot(base_sig)
+  
+```
+
+
+### Step -AIC Model ###
+ 
+```{r}
+final <- stepAIC(base)
+summary(final)
+plot(final)
+```
+### Analysis ###
+
+While the plots did not show a significant difference between the base model, the model with non-significant variables manually removed, and the step-AIC optimized model, the adjusted R-squared was higher for the manually adjusted and step-AIC optimized model, thus we can conclude that these models fit the data better. The manually adjusted and step-AIC models appear to be equivalent, so we will use the step-AIC model as our final model.
+
+
+In the final model, we see that `indus` and `age` do not seem to be significant. The plots for the model reveal a fair model with some room for improvement. The Residuals vs Fitted values plot shows a cluster near the center of the plot, and what appears to be mild decreasing trend for low fitted values and another mild increasing trend for high fitted values. This indicates that the model may have less predictive precision for high or low predictions. The standardized residuals vs Fitted Values plot shows a similar trend, but the clustering near the middle of the plot is less severe. Ideally, we would see no clustering in either plot and no visible trends for high nor low values. Overall however, the non-parametric smoother does not severely deviate from a flat line at zero. The normal Q-Q plot better identifies the flaws of the model. We can clearly see that for very low values, the model seems to overestimate the medv of low predictions. For high theoretical quantities, the errors are more severe, and the model underestimates high medv values with an increasing underestimation bias.
+
+Finally, the residuals vs leverage plot shows that we do not have any outliers which disproportionately influence the model. Thus we can keep all of the data to fit the model.
+
+In conclusion, while the model has some room for improvement at predicting the value of medv, it is accurate enough for us to come to conclusions about which variables are important predictors. We find that:
+
+  1. crim is significant, and brings down medv.
+  2. zn is highly significant, and brings up medv.
+  3. chas1 is significant, and brings up medv.
+  4. nox is highly significant and brings down medv.
+  5. rm is highly significant, brings up medv.
+  6. dis is highly significant, and brings down medv.
+  7. rad is highly significant, and brings up medf.
+  8. Tax is highly significant, and brings down medv.
+  9. pratio is highly significant, and brings down medv.
+  10. b is highly significant, and brings up medv.
+  11. lstat is highly significant, and brings down medv.
+  
+  
+## Problem 7 ##
+  
+```{r}
+d <- read.table("T6-8.dat")
+head(d)
+```
+
+### Part A, repeated measures design ###
+
+- Construction of contrast matrix, covariance matrix and mean vector
+```{r}
+C <- rbind(c(1,-1,1,-1),
+           c(1,1,-1,-1),
+           c(1,-1,-1,1))
+
+x_bar <- colMeans(d)
+S <- var(d)
+n <- nrow(d)
+q <- ncol(d)
+```
+
+- Calculation of repeated measures design
+```{r}
+t_2 <- n*(t(C%*%x_bar)%*%solve(C%*%S%*%t(C)) %*%C%*%x_bar)
+
+#F-statistic
+f_stat <- qf(0.05,q-1, n-q-1)
+t_2 > f_stat
+```
+
+And thus we reject the null hypothesis that C*mu=0 and conclude that we have some treatment effects.
+
+
+### Part B, 95% Confidence Intervals ###
+
+```{r}
+# individual contrasts
+c_1 = (C[1,])
+c_2 = (C[2,])
+c_3 = (C[3,])
+
+
+rad_1 <- sqrt( ( (n-1)*(q-1)/(n-q+1) ) * qf(0.05,q-1,n-q+1)  )
+rad_2 <- function(c_i) sqrt( t(c_i)%*%S%*%c_i/n )
+
+print("Different vs Same Parity Confidence interval")
+upper_1 <- t(c_1)%*%x_bar + rad_1*rad_2(c_1)
+lower_1 <- t(c_1)%*%x_bar - rad_1*rad_2(c_1)
+c('upper' = upper_1, 'lower' = lower_1)
+
+print('Word vs Arabic Confidence Interval')
+upper_2 <- t(c_2)%*%x_bar + rad_1*rad_2(c_2)
+lower_2 <- t(c_2)%*%x_bar - rad_1*rad_2(c_2)
+c('upper' = upper_2, 'lower' = lower_2)
+
+print('Interaction effects')
+upper_3 <- t(c_3)%*%x_bar + rad_1*rad_2(c_3)
+lower_3 <- t(c_3)%*%x_bar - rad_1*rad_2(c_3)
+c('upper' = upper_3, 'lower' = lower_3)
+
+```
+
+- Different vs Same parity
+  - We have a 95% confidence interval of (191.2412 , 221.4151). This confidence interval is far removed from 0 and shows a large effect size for Different vs. Same. It implies that having different parities increases the response time.
+- Word vs Arabic confidence interval
+  - We have a 95% confidence interval of (285.2842 , 328.5595). This confidence interval is also far removed from 0 and shows an effect due to Word vs Arabic presentation of numbers. Presenting numbers in word format increased the response time
+- Interaction in effects
+  - We have a 95% confidence interval of (-33.20843 , -11.65532). This confidence interval does not contain 0 and shows an interaction in the treatment effects. The data suggests that presenting numbers in arabic format lessened the response time increase when presented with different parities, or that presenting numbers in word format magnified the response time increase when presented with different parities.
+  
+  
+### Part C ###
+
+Since we did observe interaction effects (the 95% confidence interval for interaction effects did not contain 0), the data supports the C and C model of numerical cognition.
+
+### Part d ###
+
+- Generate difference score data matrix and test for normality
+
+```{r}
+diff_m <- as.matrix(d) %*% t(C)
+colnames(diff_m) = c("parity","format",'interaction')
+
+mvn(diff_m)
+```
+
+Based off of the results of the Marida Skewness test, this data is cannot be represented via a multivariate normal model.
+
+## Problem 8 ##
+
+- Principle Component Analysis with covariance matrix S
+```{r}
+d <- read.table("T1-5.dat")
+colnames(d) <- c('Wind','Solar_r','CO','NO','NO_2','O_3','HC')
+n <- nrow(d)
+xbar <- colMeans(d)
+S <- var(d)
+E <-  eigen(S)
+
+
+coef_vec <- E$vectors
+tot_var <- sum(E$values)
+p_var <- E$values
+
+#data summary
+summary(d)
+
+#eigenvalues
+p_var
+
+#variance contained in the first principle component
+p_var[1]/tot_var
+
+#Variance contained in first two principle components
+(p_var[1]+p_var[2])/tot_var
+
+#variance contained in first 3 components
+(p_var[1]+p_var[2]+p_var[3])/tot_var
+
+
+#first 3 components contain 98.7% of the variance
+
+#scree graph further illustrates point
+df <- data.frame('eigenvalue'=p_var,'number'= 1:7)
+ggplot(data=df,aes(x=number, y=eigenvalue)) + geom_line()+geom_point()
+
+##correlations between variables and principle components
+
+#obtain diagonal matrix with diagonal entries sigma_ii^(-1/2)
+var_ii <- diag(S)
+D <- diag(var_ii)^(-1/2)
+for(i in 1:nrow(D)){
+  for(j in 1:ncol(D))
+    if(i != j) {
+      D[i,j] = 0
+    }
+}
+
+#obtain diagonal matrix with entries lambda_i^(1/2)
+s_eigen <- sqrt(diag(p_var))
+
+x_cor <- coef_vec  %*% s_eigen
+x_cor <- t(t(x_cor) %*% D) # variable correlations with principal components
+
+#Raw Component Vectors:
+coef_vec
+
+#correlation of variables with component vector"
+x_cor
+```
+
+
+
+- Principle Component analysis using correlation matrix R
+```{r}
+R <- cor(d)
+E <- eigen(R)
+coef_vec <- E$vectors
+p_var <- E$values
+tot_var <- ncol(R)
+
+#eigenvalues
+p_var
+
+#information weights
+p_var/tot_var
+
+
+#proportion of variance due to 1st component
+p_var[1]/tot_var
+#due to first 2 components
+(p_var[1]+p_var[2])/tot_var
+
+
+#due to first 3
+(p_var[1]+p_var[2]+p_var[3])/tot_var
+
+#due to first 4
+(p_var[1]+p_var[2]+p_var[3]+p_var[4])/tot_var
+
+#due to first 5
+(p_var[1]+p_var[2]+p_var[3]+p_var[4]+p_var[5])/tot_var
+
+#due to first 6
+(p_var[1]+p_var[2]+p_var[3]+p_var[4]+p_var[5]+p_var[6])/tot_var
+
+# scree plot
+df <- data.frame('eigenvalue'=p_var,'number'= 1:7)
+ggplot(data=df,aes(x=number, y=eigenvalue)) + geom_line()+geom_point()
+
+#variable correlations with principle components
+
+
+
+#obtain diagonal matrix with entries lambda_i^(1/2)
+s_eigen <- sqrt(diag(p_var))
+
+x_cor <- coef_vec  %*% s_eigen
+
+
+#Raw Component Vectors:
+coef_vec
+
+#correlation of variables with component vector"
+x_cor
+
+```
+
+### Analysis ###
+
+It is certainly possible to summarize the data with 2 dimensions if the principle components are constructed using the sample covariance matrix S. As the Scree plot shows, components after the 2nd component contribute little information to the model. In fact, 95.4% of the variance can be attributed to the first two critical components. 
+
+Using the critical components determined by the unormalized data, the component vectors indicate that most of the variance comes from the weighted difference between wind plus NO and all other variables. From the magnitude of the coefficient vector for the first principle component, we see this weighted difference is overwhelmingly determined by Solar_r. This is supported by the correlation between this variable and the first principle component, giving a correlation coefficient of 0.9994 with the first critical component.
+
+The overwhelming influence of Solar_r in determining the variance might be due to the disproportionate size of the Soar_r variables in the data matrix. This indicates that the data may need to be re-normalized to prevent Solar_r from having a disproportionate impact on the variance in the data, which might not reflect the physical model that the data seeks to characterize. However, determining if this is the case likely requires some subject-specific knowledge, so a Data scientist should consult with the research group collecting the data.
+
+Using normalized data and the sample correlation matrix R we have a very different picture of the data. The scree plot shows that all but the last principle component carries a non-insignificant amount of information. We could possibly only use the first 4 components, which carry 81% of the variance. From there the first 5 carry 90% of the variance, and the first 6 97% of the variance. Depending on the subsequent analysis after taking principle components, using the first 4-6 components appears to be appropriate. Using only the first 3 will likely give an incomplete picture of the data (leaves 30% of the variance unaccounted for), and using all 7 is likely excessive, since the 7th principle component only contains 2% of the variance.
+
+With the normalized data Solar radiation plays a much more conservative role in determining the principle components. In this model, the first component appears to be the weighted difference between wind and all other variables in the data. This seems significant to me, since wind would carry away pollutants, whereas all other variables in the data appear to be pollutants. Thus, it would make sense that any model of pollution based off of this data would primarily be determined by the difference between wind, which carries pollution away, and the pollution. Additionally, the variable with the highest "weight", both in the raw coefficient vector and in the correlation coefficient, is CO, a common and problematic pollutant which is often the consequence of burning fossil fuels. The other principle components are more complicated linear combinations of the variables, and likely need domain-specific knowledge for correct interpretation.
+
+In conclusion, I would argue that the normalized data gives a better picture of the model. The disproportionate impact of Solar Radiation in the unormalized data might be due to a difference in measurement units and might not be reflective of the true physical model under consideration. The linear combinations offered by the normalized data's principle components also seem to make more intuitive sense in the context of pollution data. Of course, this is all conditional on a true subject-matter expert's opinion.

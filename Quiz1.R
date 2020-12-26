@@ -3,9 +3,10 @@
 
 
 library(MVN)
+
 d = read.table('T4-6.DAT')
-d = cbind(d[,3],d[,4])
-colnames(d) = c('Ben','Con')
+names(d) = c('1','2','Ben','Con','5','6','7')
+d = d[c('Ben','Con')]
 
 #Problem a
 mvn(d,univariateTest = "CVM")
@@ -25,7 +26,7 @@ mvn(d, mvnTest = 'royston')
 
 #Problem c
 
-#mvn(d, multivariateOutlierMethod='adj') Commented out due to errors with knittr, but plot is included
+mvn(d, multivariateOutlierMethod='adj') 
 
 # conclusion: no outliers detected, additonally, the linearity of the Q-Q plot futher confirms our assumpion of multivariate normality
 
@@ -57,7 +58,6 @@ m=2
 for( i in 1:2){
   print( c(xbar[i] - qt(0.99/(2*m),n-1)*sqrt(S[i,i]/n), xbar[i] + qt(0.99/(2*m),n-1)*sqrt(S[i,i]/n)))
 }
-d
 
 #Thus our confidence intervals are :
 # 18.46 <= mu_ben <= 19.11
